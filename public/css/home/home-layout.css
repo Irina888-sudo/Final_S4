@@ -1,3 +1,5 @@
+/* home-layout.css */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,55 +8,121 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #0b0e14;
+    padding: 20px;
 }
 
+/* Conteneur principal */
 .home-container {
-    text-align: center;
-    background: #fff;
-    padding: 50px 60px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.home-container h1 {
-    font-size: 28px;
-    color: #222;
-    margin-bottom: 8px;
-}
-
-.home-subtitle {
-    color: #666;
-    margin-bottom: 30px;
-}
-
-.home-choices {
+    width: 420px;
+    background: linear-gradient(
+        to top right,
+        #975af4,
+        #2f7cf8 40%,
+        #78aafa 65%,
+        #934cff 100%
+    );
+    padding: 4px;
+    border-radius: 32px;
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    flex-direction: column;
 }
 
-.home-btn {
-    text-decoration: none;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: bold;
+/* Titre - agrandi et lisible */
+.home-container .title-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 18px 12px;
     color: #fff;
-    transition: opacity 0.2s;
+    text-align: center;
 }
 
-.home-btn:hover {
-    opacity: 0.85;
+.home-container .title-card h1 {
+    font-size: 28px;
+    font-weight: 700;
+    font-style: italic;
+    text-shadow: 2px 2px 6px #2975ee;
+    margin-bottom: 4px;
 }
 
-.home-btn-operateur {
-    background: #2c3e50;
+.home-container .title-card p {
+    font-size: 16px;
+    font-weight: 400;
+    font-style: italic;
+    text-shadow: 2px 2px 6px #2975ee;
+    opacity: 0.9;
 }
 
-.home-btn-client {
-    background: #27ae60;
+/* Contenu intérieur */
+.home-container .card-content {
+    width: 100%;
+    height: 100%;
+    background-color: #161a20;
+    border-radius: 30px;
+    color: #838383;
+    font-size: 14px;
+    padding: 24px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.home-container .card-content .title {
+    font-weight: 600;
+    color: #bab9b9;
+    text-align: center;
+    font-size: 16px;
+}
+
+.home-container .card-content .plain {
+    text-align: center;
+    font-size: 48px;
+    color: #fff;
+}
+
+.home-container .card-content .plain span {
+    font-size: 48px;
+}
+
+/* Boutons - agrandis et lisibles */
+.home-container .card-content .card-btn {
+    background: linear-gradient(
+        4deg,
+        #975af4,
+        #2f7cf8 40%,
+        #78aafa 65%,
+        #934cff 100%
+    );
+    padding: 14px 8px;
+    border: none;
+    width: 100%;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+.home-container .card-content .card-btn:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px #fff;
+    transform: scale(1.03);
+}
+
+.home-container .card-content .card-btn:active {
+    transform: scale(1);
+}
+
+.home-container .card-content .card-btn:last-child {
+    margin-top: 4px;
 }
