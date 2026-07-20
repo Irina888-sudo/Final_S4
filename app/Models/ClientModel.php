@@ -19,4 +19,21 @@ class ClientModel extends Model
                     ->where('clients.telephone', $telephone)
                     ->first();
     }
+
+    public function getPrefixeId(int $clientId): ?int
+    {
+        $client = $this->find($clientId);
+        return $client['prefixe_id'] ?? null;
+    }
+
+    public function estInterne(string $telephone): bool
+    {
+        $client = $this->findWithPrefixe($telephone);
+        
+        if ($client === null) {
+            return false; // Client inexistant
+        }
+        
+        return (bool) $client['est_interne']; // 1 = interne, 0 = externe
+    }
 }

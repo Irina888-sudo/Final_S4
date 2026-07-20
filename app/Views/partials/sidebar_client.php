@@ -9,6 +9,7 @@
         <a href="<?= base_url('client/depot') ?>">Dépôt</a>
         <a href="<?= base_url('client/retrait') ?>">Retrait</a>
         <a href="<?= base_url('client/transfert') ?>">Transfert</a>
+        <a href="<?= base_url('client/transfert-multiple') ?>">Envoi multiple</a>
         <a href="<?= base_url('client/historique') ?>">Historique</a>
     </nav>
 

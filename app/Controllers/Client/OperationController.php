@@ -7,6 +7,7 @@ use App\Services\DepotService;
 use App\Models\CompteModel;
 use App\Services\RetraitService;
 use App\Services\TransfertService;
+use App\Services\TransfertMultipleService;
 
 class OperationController extends BaseController
 {
@@ -58,41 +59,61 @@ class OperationController extends BaseController
         return view('client/historique', ['historique' => $historique]);
     }
 
-public function transfert()
-{
-    if ($this->request->is('post')) {
-        $telephoneDestinataire = $this->request->getPost('telephone_destinataire');
-        $montant = (float) $this->request->getPost('montant');
-        $inclureFraisRetrait = (bool) $this->request->getPost('inclure_frais_retrait');
-        $clientId = session()->get('client_id');
+    public function transfert()
+    {
+        if ($this->request->is('post')) {
+            $telephoneDestinataire = $this->request->getPost('telephone_destinataire');
+            $montant = (float) $this->request->getPost('montant');
+            $inclureFraisRetrait = (bool) $this->request->getPost('inclure_frais_retrait');
+            $clientId = session()->get('client_id');
 
-        $service = new TransfertService();
-        $result = $service->effectuer($clientId, $telephoneDestinataire, $montant, $inclureFraisRetrait);
+            $service = new TransfertService();
+            $result = $service->effectuer($clientId, $telephoneDestinataire, $montant, $inclureFraisRetrait);
 
-        if (! $result['success']) {
-            return redirect()->to('/client/transfert')->with('error', $result['message']);
+            if (! $result['success']) {
+                return redirect()->to('/client/transfert')->with('error', $result['message']);
+            }
+
+            return redirect()->to('/client/dashboard')->with('success', $result['message']);
         }
 
-        return redirect()->to('/client/dashboard')->with('success', $result['message']);
+        return view('client/transfert');
     }
 
-    return view('client/transfert');
-}
+    public function checkDestinataire()
+    {
+        $telephone = $this->request->getGet('telephone');
 
-public function checkDestinataire()
-{
-    $telephone = $this->request->getGet('telephone');
+        $clientModel = new \App\Models\ClientModel();
+        $destinataire = $clientModel->findWithPrefixe($telephone);
 
-    $clientModel = new \App\Models\ClientModel();
-    $destinataire = $clientModel->findWithPrefixe($telephone);
+        if (! $destinataire) {
+            return $this->response->setJSON(['exists' => false]);
+        }
 
-    if (! $destinataire) {
-        return $this->response->setJSON(['exists' => false]);
+        return $this->response->setJSON([
+            'exists'      => true,
+            'est_interne' => (bool) $destinataire['est_interne'],
+        ]);
     }
 
-    return $this->response->setJSON([
-        'exists'      => true,
-        'est_interne' => (bool) $destinataire['est_interne'],
-    ]);
-}
+    public function transfertMultiple()
+    {
+        if ($this->request->is('post')) {
+            $telephones = $this->request->getPost('telephones'); // tableau
+            $montantTotal = (float) $this->request->getPost('montant_total');
+            $clientId = session()->get('client_id');
+
+            $service = new TransfertMultipleService();
+            $result = $service->effectuer($clientId, $telephones ?? [], $montantTotal);
+
+            if (! $result['success']) {
+                return redirect()->to('/client/transfert-multiple')->with('error', $result['message']);
+            }
+
+            return redirect()->to('/client/dashboard')->with('success', $result['message']);
+        }
+
+        return view('client/transfert_multiple');
+    }
 }
