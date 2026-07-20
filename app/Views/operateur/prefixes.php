@@ -38,7 +38,7 @@
                 <button type="submit" onclick="return confirm('Supprimer ?')">Supprimer</button>
             </form>
         </td>
-        <td><?= $p['est_notre_operateur'] ? 'Mon opérateur' : 'Externe' ?></td>
+        <td><?= $p['est_interne'] ? 'Mon opérateur' : 'Externe' ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
