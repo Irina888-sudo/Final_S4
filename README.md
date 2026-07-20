@@ -16,3 +16,13 @@ php spark migrate:refresh
 
 # insertion des donnees
 php spark db:seed InitialDataSeeder;
+
+
+# creer tous les model
+php spark make:model OperateurModel
+php spark make:model PrefixeModel
+php spark make:model ClientModel
+php spark make:model CompteModel
+php spark make:model TypeOperationModel
+php spark make:model BaremeModel
+php spark make:model TransactionModel
