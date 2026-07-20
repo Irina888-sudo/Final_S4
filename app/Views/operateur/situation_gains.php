@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url('css/operateur/op-sidebar.css') ?>">
         <link rel="stylesheet" href="<?= base_url('css/operateur/op-dashboard.css') ?>">
+        <link rel="stylesheet" href="<?= base_url('css/operateur/test.css') ?>">
     <title>Document</title>
 </head>
 <body>
