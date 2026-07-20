@@ -19,15 +19,27 @@ class SituationController extends BaseController
     }
 
     public function gains()
-    {
-         $data = $this->transactionModel
-            ->select('types_operation.libelle, SUM(transactions.frais) AS total_gains')
+{
+        $gains = $this->transactionModel
+            ->select('types_operation.libelle, COUNT(transactions.id) AS nb, SUM(transactions.frais) AS total_frais')
             ->join('types_operation', 'types_operation.id = transactions.type_operation_id')
             ->groupBy('types_operation.id')
             ->findAll();
-            return view('operateur/situation_gains', ['gains' => $data]);
-   
-    }
+
+        $montants_dus = $this->transactionModel
+       ->select('prefixes.code, SUM(transactions.commission_externe) AS total_du')
+       ->join('clients', 'clients.id = transactions.client_destinataire_id')
+       ->join('prefixes', 'prefixes.id = clients.prefixe_id')
+       ->where('transactions.commission_externe >', 0)
+       ->groupBy('prefixes.id')
+       ->findAll();
+
+
+    return view('operateur/situation_gains', [
+        'gains' => $gains,
+        'montants_dus' => $montants_dus, // à définir dans le TODO ci-dessus
+    ]);
+}
 
     public function comptes()
     {

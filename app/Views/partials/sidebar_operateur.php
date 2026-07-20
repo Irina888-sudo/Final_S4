@@ -8,6 +8,7 @@
         <a href="<?= base_url('operateur/dashboard') ?>">Dashboard</a>
         <a href="<?= base_url('operateur/prefixes') ?>">Préfixes</a>
         <a href="<?= base_url('operateur/types-baremes') ?>">Types &amp; Barèmes</a>
+         <a href="<?= base_url('operateur/commission') ?>">Commission externe</a>  
         <a href="<?= base_url('operateur/situation-gains') ?>">Situation Gains</a>
         <a href="<?= base_url('operateur/situation-comptes') ?>">Situation Comptes</a>
     </nav>

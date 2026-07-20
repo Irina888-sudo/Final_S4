@@ -48,3 +48,7 @@ $routes->group('client', ['filter' => 'clientAuth'], function ($routes) {
     $routes->get('check-destinataire', 'Client\OperationController::checkDestinataire');
     $routes->match(['get', 'post'], 'transfert-multiple', 'Client\OperationController::transfertMultiple');
 });
+
+
+$routes->get('operateur/commission', 'Operateur\CommissionController::index');
+$routes->post('commission/update', 'Operateur\CommissionController::update');

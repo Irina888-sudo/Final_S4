@@ -33,6 +33,12 @@
     <button type="submit">Enregistrer</button>
 </form>
 
+<label>Type :</label>
+<select name="est_notre_operateur">
+    <option value="1" <?= (isset($prefixe) && $prefixe['est_notre_operateur'] == 1) ? 'selected' : '' ?>>Mon opérateur</option>
+    <option value="0" <?= (isset($prefixe) && $prefixe['Externe'] == 0) ? 'selected' : '' ?>>Autre opérateur</option>
+</select>
+
 <a href="/operateur/prefixes">Retour à la liste</a>
 </div>
 </body>
