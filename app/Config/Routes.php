@@ -46,3 +46,7 @@ $routes->group('client', ['filter' => 'clientAuth'], function ($routes) {
     $routes->match(['get', 'post'], 'transfert', 'Client\OperationController::transfert');
     $routes->get('historique', 'Client\OperationController::historique');
 });
+
+
+$routes->get('operateur/commission', 'Operateur\CommissionController::index');
+$routes->post('commission/update', 'Operateur\CommissionController::update');

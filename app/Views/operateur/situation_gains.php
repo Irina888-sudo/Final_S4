@@ -21,6 +21,17 @@
     </tr>
     <?php endforeach; ?>
 </table>
+
+<h2>Montants dus aux autres opérateurs</h2>
+<table border="1">
+    <tr><th>Préfixe</th><th>Total dû</th></tr>
+    <?php foreach ($montants_dus as $m): ?>
+    <tr>
+        <td><?= $m['code'] ?></td>
+        <td><?= $m['total_du'] ?> Ar</td>
+    </tr>
+    <?php endforeach; ?>
+</table>
 </div>
 </body>
 </html>

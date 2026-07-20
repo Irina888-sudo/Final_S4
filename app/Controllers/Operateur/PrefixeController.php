@@ -32,11 +32,12 @@ class PrefixeController extends BaseController
     public function create()
     {
        $code = $this->request->getPost('code');
+       $est_notre_operateur = $this->request->getPost('est_notre_operateur'); // ou getVar() dans update()
        $actif = $this->request->getPost('actif');
        if (strlen($code) !== 3) {
            return redirect()->back()->withInput()->with('error', 'Le code doit contenir exactement 3 caractères.');
        }
-       $this->prefixeModel->insert(['code' => $code, 'actif' => $actif]);
+       $this->prefixeModel->insert(['code' => $code, 'actif' => $actif, 'est_notre_operateur' => $est_notre_operateur]);
        return redirect()->to('/operateur/prefixes');
     }
 
