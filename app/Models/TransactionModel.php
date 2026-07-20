@@ -24,4 +24,13 @@ class TransactionModel extends Model
                     ->findAll();
     }
 
+    public function getRepartitionParType(int $clientId): array
+    {
+        return $this->select('types_operation.libelle, COUNT(transactions.id) as total')
+                    ->join('types_operation', 'types_operation.id = transactions.type_operation_id')
+                    ->where('transactions.client_id', $clientId)
+                    ->groupBy('types_operation.libelle')
+                    ->findAll();
+    }
+
 }
