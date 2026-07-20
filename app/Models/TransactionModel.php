@@ -14,4 +14,14 @@ class TransactionModel extends Model
     ];
     protected $returnType    = 'array';
     protected $useTimestamps = false;
+
+    public function getHistoriqueClient(int $clientId): array
+    {
+        return $this->select('transactions.*, types_operation.libelle as type_libelle')
+                    ->join('types_operation', 'types_operation.id = transactions.type_operation_id')
+                    ->where('transactions.client_id', $clientId)
+                    ->orderBy('transactions.date_creation', 'DESC')
+                    ->findAll();
+    }
+
 }
