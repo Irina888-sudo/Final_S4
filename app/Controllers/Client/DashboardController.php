@@ -17,12 +17,14 @@ class DashboardController extends BaseController
 
         $transactionModel = new TransactionModel();
         $repartition = $transactionModel->getRepartitionParType($clientId);
+        $evolution = $transactionModel->getEvolutionSolde($clientId);
 
         $data = [
             'client_nom'       => session()->get('client_nom'),
             'client_telephone' => session()->get('client_telephone'),
             'solde'            => $compte['solde'] ?? 0,
             'repartition'      => $repartition,
+            'evolution'        => $evolution,
         ];
 
         return view('client/dashboard', $data);

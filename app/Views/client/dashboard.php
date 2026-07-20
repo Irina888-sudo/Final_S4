@@ -27,6 +27,15 @@
             <canvas id="repartitionChart"></canvas>
         <?php endif; ?>
     </div>
+
+    <div class="cl-chart-container">
+        <h3>Évolution de votre solde</h3>
+        <?php if (empty($evolution)): ?>
+            <p>Aucune donnée pour le moment.</p>
+        <?php else: ?>
+            <canvas id="evolutionChart"></canvas>
+        <?php endif; ?>
+    </div>
 </div>
 
 <?php if (! empty($repartition)): ?>
@@ -50,6 +59,34 @@
             plugins: {
                 legend: { position: 'bottom' }
             }
+        }
+    });
+</script>
+<?php endif; ?>
+
+<?php if (! empty($evolution)): ?>
+<script>
+    const ctxEvo = document.getElementById('evolutionChart');
+
+    const evoLabels = <?= json_encode(array_map(fn($e) => $e['date'], $evolution)) ?>;
+    const evoData = <?= json_encode(array_map(fn($e) => (float) $e['solde'], $evolution)) ?>;
+
+    new Chart(ctxEvo, {
+        type: 'line',
+        data: {
+            labels: evoLabels,
+            datasets: [{
+                label: 'Solde (Ar)',
+                data: evoData,
+                borderColor: '#27ae60',
+                backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                fill: true,
+                tension: 0.2,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } }
         }
     });
 </script>
