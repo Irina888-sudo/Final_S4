@@ -25,13 +25,13 @@ class TransfertService
         $this->clientModel        = new ClientModel();
     }
 
-    public function effectuer(int $clientId, string $telephoneDestinataire, float $montant): array
+    public function effectuer(int $clientId, string $telephoneDestinataire, float $montant, bool $inclureFraisRetrait = false): array
     {
         if ($montant <= 0) {
             return ['success' => false, 'message' => 'Montant invalide.'];
         }
 
-        $destinataire = $this->clientModel->where('telephone', $telephoneDestinataire)->first();
+        $destinataire = $this->clientModel->findWithPrefixe($telephoneDestinataire);
 
         if (! $destinataire) {
             return ['success' => false, 'message' => 'Destinataire introuvable.'];
@@ -41,47 +41,58 @@ class TransfertService
             return ['success' => false, 'message' => 'Vous ne pouvez pas transférer vers votre propre compte.'];
         }
 
-        $typeTransfert = $this->typeOperationModel->where('libelle', 'transfert')->first();
-
-        if (! $typeTransfert) {
-            return ['success' => false, 'message' => "Type d'opération 'transfert' introuvable."];
+        // Verification serveur : l'option n'est valable que pour un destinataire interne
+        if ($inclureFraisRetrait && ! $destinataire['est_interne']) {
+            return ['success' => false, 'message' => "L'option frais de retrait inclus n'est pas disponible pour cet opérateur."];
         }
 
-        $frais = $this->baremeModel->getFrais($typeTransfert['id'], $montant);
+        $typeTransfert = $this->typeOperationModel->where('libelle', 'transfert')->first();
+        $typeRetrait   = $this->typeOperationModel->where('libelle', 'retrait')->first();
 
-        $compteEmetteur = $this->compteModel->where('client_id', $clientId)->first();
+        if (! $typeTransfert || ! $typeRetrait) {
+            return ['success' => false, 'message' => "Types d'opération introuvables."];
+        }
+
+        $fraisTransfert = $this->baremeModel->getFrais($typeTransfert['id'], $montant);
+
+        // Frais de retrait futur estime, uniquement si l'option est activee et valide
+        $fraisRetraitPrevu = 0;
+        if ($inclureFraisRetrait) {
+            $fraisRetraitPrevu = $this->baremeModel->getFrais($typeRetrait['id'], $montant);
+        }
+
+        $compteEmetteur     = $this->compteModel->where('client_id', $clientId)->first();
         $compteDestinataire = $this->compteModel->where('client_id', $destinataire['id'])->first();
 
         if (! $compteEmetteur || ! $compteDestinataire) {
             return ['success' => false, 'message' => 'Compte introuvable.'];
         }
 
-        $totalADeduire = $montant + $frais;
+        $totalADeduire = $montant + $fraisTransfert + $fraisRetraitPrevu;
 
         if ($compteEmetteur['solde'] < $totalADeduire) {
             return ['success' => false, 'message' => 'Solde insuffisant pour ce transfert.'];
         }
 
+        $montantCredite = $montant + $fraisRetraitPrevu;
+
         $db = \Config\Database::connect();
         $db->transStart();
 
-        // Débit émetteur
         $this->compteModel->update($compteEmetteur['id'], [
             'solde' => $compteEmetteur['solde'] - $totalADeduire,
         ]);
 
-        // Crédit destinataire
         $this->compteModel->update($compteDestinataire['id'], [
-            'solde' => $compteDestinataire['solde'] + $montant,
+            'solde' => $compteDestinataire['solde'] + $montantCredite,
         ]);
 
-        // Une seule ligne de transaction
         $this->transactionModel->insert([
             'client_id'              => $clientId,
             'client_destinataire_id' => $destinataire['id'],
             'type_operation_id'      => $typeTransfert['id'],
             'montant'                => $montant,
-            'frais'                  => $frais,
+            'frais'                  => $fraisTransfert,
             'date_creation'          => date('Y-m-d H:i:s'),
         ]);
 
@@ -91,6 +102,10 @@ class TransfertService
             return ['success' => false, 'message' => 'Erreur lors du transfert.'];
         }
 
-        return ['success' => true, 'message' => 'Transfert effectué avec succès.'];
+        $message = $inclureFraisRetrait
+            ? 'Transfert effectué avec succès (frais de retrait futurs pris en charge).'
+            : 'Transfert effectué avec succès.';
+
+        return ['success' => true, 'message' => $message];
     }
 }

@@ -45,4 +45,5 @@ $routes->group('client', ['filter' => 'clientAuth'], function ($routes) {
     $routes->match(['get', 'post'], 'retrait', 'Client\OperationController::retrait');
     $routes->match(['get', 'post'], 'transfert', 'Client\OperationController::transfert');
     $routes->get('historique', 'Client\OperationController::historique');
+    $routes->get('check-destinataire', 'Client\OperationController::checkDestinataire');
 });
