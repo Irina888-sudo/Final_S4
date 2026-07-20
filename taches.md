@@ -1,8 +1,9 @@
 Etape 0 : 
 Authentification
-Filter
+Filter (gestion des routes)
 Login
-Table user
+Session
+Table user : 
 
 
 Etape 1 : Base de donnee
