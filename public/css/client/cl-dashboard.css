@@ -3,15 +3,6 @@
     padding: 30px;
 }
 
-.cl-solde-card {
-    background: #27ae60;
-    color: #fff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    margin: 20px 0 30px;
-    max-width: 300px;
-}
-
 .cl-solde-label {
     font-size: 14px;
     opacity: 0.9;
@@ -23,11 +14,21 @@
     margin-top: 5px;
 }
 
+.cl-solde-card {
+    background: var(--cl-primary);
+    color: var(--cl-white);
+    padding: 25px 30px;
+    border-radius: var(--cl-radius);
+    margin: 20px 0 30px;
+    max-width: 300px;
+    box-shadow: var(--cl-shadow-md);
+}
+
 .cl-chart-container {
-    background: #fff;
+    background: var(--cl-white);
     padding: 25px;
-    border-radius: 12px;
+    border-radius: var(--cl-radius);
     max-width: 400px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: var(--cl-shadow-sm);
     margin-bottom: 25px;
 }

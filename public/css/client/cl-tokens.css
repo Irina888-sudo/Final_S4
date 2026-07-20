@@ -1,0 +1,31 @@
+:root {
+    /* Couleurs */
+    --cl-primary: #27ae60;
+    --cl-primary-dark: #1e8449;
+    --cl-primary-light: #eafaf1;
+    --cl-danger: #e74c3c;
+    --cl-text: #2c3e50;
+    --cl-text-muted: #7f8c8d;
+    --cl-bg: #f4f6f8;
+    --cl-white: #ffffff;
+    --cl-border: #e0e0e0;
+
+    /* Ombres */
+    --cl-shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+    --cl-shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+
+    /* Espacements */
+    --cl-radius: 12px;
+    --cl-radius-sm: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: var(--cl-bg);
+    color: var(--cl-text);
+    margin: 0;
+}
