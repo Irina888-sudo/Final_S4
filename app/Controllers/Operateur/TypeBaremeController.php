@@ -20,7 +20,7 @@ class TypeBaremeController extends BaseController
         foreach ($types as &$type) {
             $type['baremes'] = $this->baremeModel->where('type_operation_id', $type['id'])->findAll();
         }
-        return view('operateur/types_baremes', ['types' => $types]);
+        return view('operateur/baremes', ['types' => $types]);
     }
 
     public function new()

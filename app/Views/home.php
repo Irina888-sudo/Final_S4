@@ -8,14 +8,20 @@
 <body>
 
 <div class="home-container">
-    <h1>Mobile Money</h1>
-    <p class="home-subtitle">Choisissez votre espace</p>
+    <div class="title-card">
+        <h1>Mobile Money</h1>
+        <p>Choisissez votre espace</p>
+    </div>
 
-    <div class="home-choices">
-        <a href="<?= base_url('operateur/login') ?>" class="home-btn home-btn-operateur">
+    <div class="card-content">
+        <div class="title">Bienvenue</div>
+
+        
+        <a href="<?= base_url('operateur/login') ?>" class="card-btn">
             Espace Opérateur
         </a>
-        <a href="<?= base_url('client/login') ?>" class="home-btn home-btn-client">
+        
+        <a href="<?= base_url('client/login') ?>" class="card-btn">
             Espace Client
         </a>
     </div>
