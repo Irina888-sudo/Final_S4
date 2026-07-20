@@ -13,3 +13,6 @@ php spark make:migration CreateTransactionsTable
 # Comment migrer
 php spark migrate
 php spark migrate:refresh
+
+# insertion des donnees
+php spark db:seed InitialDataSeeder;
