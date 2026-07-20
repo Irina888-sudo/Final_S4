@@ -1,0 +1,76 @@
+.cl-sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #1e824c;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: Arial, sans-serif;
+}
+
+.cl-sidebar-header {
+    padding: 25px 20px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.cl-sidebar-header h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.cl-sidebar-tag {
+    font-size: 12px;
+    color: #d4efdf;
+}
+
+.cl-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0;
+    flex-grow: 1;
+}
+
+.cl-sidebar-nav a {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.cl-sidebar-nav a:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.cl-sidebar-user {
+    padding: 18px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.cl-sidebar-username {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.cl-sidebar-tel {
+    font-size: 12px;
+    color: #d4efdf;
+    margin-bottom: 8px;
+}
+
+.cl-sidebar-logout {
+    display: inline-block;
+    color: #ffb3b3;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.cl-sidebar-logout:hover {
+    text-decoration: underline;
+}

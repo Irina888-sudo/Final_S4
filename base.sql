@@ -1,3 +1,1 @@
-CREATE DATABASE IF NOT EXISTS `4110-4016-mobile-money` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `4110-4016-mobile-money`;
-
+CREATE DATABASE `4110-4016-mobile-money`;

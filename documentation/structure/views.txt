@@ -1,0 +1,33 @@
+app/Views/
+│
+├── partials/
+│   ├── sidebar_operateur.php
+│   ├── sidebar_client.php
+│   ├── topbar_operateur.php
+│   └── topbar_client.php
+│
+├── operateur/
+│   ├── login.php                    # page seule, pas de layout (avant connexion)
+│   ├── dashboard.php                # <html> + sidebar + dashboard_content
+│   ├── dashboard_content.php         # juste le contenu (stats, cards)
+│   ├── prefixes.php                  # <html> + sidebar + prefixes_content
+│   ├── prefixes_content.php
+│   ├── types_baremes.php
+│   ├── types_baremes_content.php
+│   ├── situation_gains.php
+│   ├── situation_gains_content.php
+│   ├── situation_comptes.php
+│   └── situation_comptes_content.php
+│
+└── client/
+    ├── login.php
+    ├── dashboard.php
+    ├── dashboard_content.php
+    ├── depot.php
+    ├── depot_content.php
+    ├── retrait.php
+    ├── retrait_content.php
+    ├── transfert.php
+    ├── transfert_content.php
+    ├── historique.php
+    └── historique_content.php
