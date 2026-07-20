@@ -13,6 +13,7 @@ class CreateComptesTable extends Migration
         'client_id' => ['type' => 'INT', 'constraint' => 5, 'unsigned' => true],
         'solde' => ['type' => 'DECIMAL', 'constraint' => '12,2', 'default' => 0],
     ]);
+    $this->forge->addUniqueKey('client_id');
     $this->forge->addPrimaryKey('id');
     $this->forge->addForeignKey('client_id', 'clients', 'id', 'CASCADE', 'CASCADE');
     $this->forge->createTable('comptes');
