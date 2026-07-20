@@ -1,5 +1,18 @@
-<!-- app/Views/operateur/types_baremes.php -->
-<h1>Types d'opération & Barèmes</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= base_url('css/operateur/op-sidebar.css') ?>">
+     <link rel="stylesheet" href="<?= base_url('css/operateur/op-dashboard.css') ?>">
+    <title>Document</title>
+   
+</head>
+<body>
+    
+     <?= view('partials/sidebar_operateur') ?>
+     <div class="op-content">
+    <h1>Types d'opération & Barèmes</h1>
 <a href="/operateur/types-baremes/new">+ Ajouter un barème</a>
 
 <?php foreach ($types as $type): ?>
@@ -23,3 +36,6 @@
         <?php endforeach; ?>
     </table>
 <?php endforeach; ?>
+</div>
+</body>
+</html><!-- app/Views/operateur/types_baremes.php -->

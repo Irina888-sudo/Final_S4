@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= base_url('css/operateur/op-sidebar.css') ?>">
+     <link rel="stylesheet" href="<?= base_url('css/operateur/op-dashboard.css') ?>">
     <title>Document</title>
+    
 </head>
+ 
 <body>
+    <?= view('partials/sidebar_operateur') ?>
+     <div class="op-content">
+   
     <!-- app/Views/operateur/baremes_form.php -->
 <h1><?= isset($bareme) ? 'Modifier' : 'Ajouter' ?> un barème</h1>
 
@@ -41,5 +48,6 @@
     <button type="submit">Enregistrer</button>
 </form>
 <a href="/operateur/types-baremes">Retour</a>
+</div>
 </body>
 </html>
