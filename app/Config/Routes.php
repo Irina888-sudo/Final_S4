@@ -27,6 +27,9 @@ $routes->group('operateur', ['filter' => 'operateurAuth'], function ($routes) {
 
     $routes->get('situation-gains', 'Operateur\SituationController::gains');
     $routes->get('situation-comptes', 'Operateur\SituationController::comptes');
+
+   $routes->get('commission', 'Operateur\CommissionController::index');
+$routes->post('commission/update', 'Operateur\CommissionController::update');
 });
 
 // ============ CLIENT ============
@@ -48,5 +51,3 @@ $routes->group('client', ['filter' => 'clientAuth'], function ($routes) {
 });
 
 
-$routes->get('operateur/commission', 'Operateur\CommissionController::index');
-$routes->post('commission/update', 'Operateur\CommissionController::update');
