@@ -5,8 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="<?= base_url('css/operateur/op-sidebar.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/operateur/op-dashboard.css') ?>">
+     
 </head>
 <body>
+    
+    <?= view('partials/sidebar_operateur') ?>
+  <div class="op-content">
     <p>Bienvenue, <?= $operateur_username ?></p>
 
 <?php foreach ($prefixes as $p): ?>
@@ -35,7 +41,10 @@
     </tr>
     <?php endforeach; ?>
 </table>
+</div>
+
 </body>
+ 
 </html>
 
 
