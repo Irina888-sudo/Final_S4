@@ -1,80 +1,259 @@
+/* ==========================================================
+   cl-login.css — Page connexion client MOMO PAY
+   ========================================================== */
+
+:root {
+    --bg-start: #000000;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --cl-accent: #00d1ff;
+    --cl-accent-soft: rgba(0, 209, 255, 0.12);
+    --cl-panel: rgba(255, 255, 255, 0.04);
+    --cl-panel-border: rgba(255, 255, 255, 0.08);
+    --cl-radius: 16px;
+    --cl-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --red: #ef4444;
+    --red-bg: rgba(239, 68, 68, 0.15);
+    --red-border: rgba(239, 68, 68, 0.35);
+}
+
+[data-theme="light"] {
+    --bg-start: #f8fafc;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --cl-accent: #0096c7;
+    --cl-accent-soft: rgba(0, 150, 199, 0.1);
+    --cl-panel: rgba(255, 255, 255, 0.92);
+    --cl-panel-border: rgba(15, 23, 42, 0.08);
+}
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-main);
+    background:
+        radial-gradient(circle at top right, rgba(0, 209, 255, 0.1), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(124, 92, 255, 0.1), transparent 28%),
+        var(--bg-start);
+}
+
+[data-theme="dark"] body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom right, rgba(0,0,0,0.5), rgba(15,23,42,0.6));
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ---------- PAGE ---------- */
+.cl-login-page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1.5rem;
 }
 
 .cl-login-container {
-    background: #fff;
-    padding: 40px 45px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    width: 320px;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem 1.75rem;
+    border-radius: var(--cl-radius);
+    background: var(--cl-panel);
+    border: 1px solid var(--cl-panel-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 0 40px rgba(0, 209, 255, 0.06);
+    animation: clLoginFadeUp 0.55s var(--cl-ease) both;
 }
 
-.cl-login-container h2 {
+/* ---------- BRAND ---------- */
+.cl-login-brand {
     text-align: center;
-    color: #27ae60;
-    margin-bottom: 25px;
+    margin-bottom: 1.75rem;
 }
 
+.cl-login-kicker {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cl-accent);
+    text-shadow: 0 0 20px rgba(0, 209, 255, 0.3);
+}
+
+[data-theme="light"] .cl-login-kicker {
+    text-shadow: none;
+}
+
+.cl-login-brand h1 {
+    margin: 0 0 0.4rem;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.cl-login-brand p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+}
+
+/* ---------- ERREUR ---------- */
 .cl-login-error {
-    background: #fdecea;
-    color: #c0392b;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    font-size: 14px;
+    margin-bottom: 1.25rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    color: #ffd0d5;
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
 }
 
-form {
+[data-theme="light"] .cl-login-error {
+    color: #dc2626;
+}
+
+/* ---------- FORMULAIRE ---------- */
+.cl-login-form {
     display: flex;
     flex-direction: column;
+    gap: 1.25rem;
 }
 
-label {
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 5px;
-    margin-top: 12px;
+.cl-login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
 }
 
-input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
+.cl-login-field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
 }
 
-button {
-    margin-top: 22px;
-    padding: 12px;
-    background: #27ae60;
-    color: #fff;
+.cl-login-field input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--text-main);
+    font: inherit;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    outline: none;
+    transition:
+        border-color 0.25s var(--cl-ease),
+        box-shadow 0.25s var(--cl-ease),
+        background 0.25s var(--cl-ease);
+}
+
+[data-theme="light"] .cl-login-field input {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.cl-login-field input::placeholder {
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.cl-login-field input:focus {
+    border-color: rgba(0, 209, 255, 0.45);
+    background: rgba(0, 209, 255, 0.05);
+    box-shadow:
+        0 0 0 3px rgba(0, 209, 255, 0.12),
+        0 0 20px rgba(0, 209, 255, 0.08);
+}
+
+/* ---------- BOUTON ---------- */
+.cl-login-submit {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 0.25rem;
+    padding: 0.85rem 1.2rem;
     border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #041018;
     cursor: pointer;
+    background: linear-gradient(135deg, #00d1ff, #4de4ff);
+    box-shadow: 0 8px 24px rgba(0, 209, 255, 0.28);
+    transition:
+        transform 0.25s var(--cl-ease),
+        box-shadow 0.25s var(--cl-ease);
 }
 
-button:hover {
-    opacity: 0.9;
+.cl-login-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 209, 255, 0.38);
 }
 
+.cl-login-submit:active {
+    transform: translateY(0);
+}
+
+/* ---------- LIEN RETOUR ---------- */
 .cl-login-back {
-    display: block;
-    text-align: center;
-    margin-top: 18px;
-    font-size: 13px;
-    color: #888;
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
     text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.cl-login-back:hover {
+    color: var(--cl-accent);
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes clLoginFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 480px) {
+    .cl-login-container {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .cl-login-brand h1 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cl-login-container {
+        animation: none;
+    }
+    .cl-login-submit {
+        transition: none;
+    }
 }
