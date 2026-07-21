@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= esc($title ?? 'Configuration epargne - MOMO PAY') ?></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="<?= base_url('css/client/cl-sidebar.css') ?>">
+    <!-- <link rel="stylesheet" href="<?= base_url('css/client/cl-dashboard.css') ?>"> -->
+    <link rel="stylesheet" href="<?= base_url('css/operateur/op-dashboard.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/operateur/op-form.css') ?>">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 
    
     <link rel="stylesheet" href="<?= base_url('css/operateur/op-form.css') ?>">
 </head>
 <body>
 
-    <?= view('partials/sidebar_operateur', [
+    <?= view('partials/sidebar_client', [
         'currentPage' => $currentPage ?? uri_string(),
     ]) ?>
 
