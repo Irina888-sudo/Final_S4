@@ -16,6 +16,7 @@ $routes->group('operateur', function ($routes) {
     $routes->get('login', 'Operateur\AuthController::login');
     $routes->post('login', 'Operateur\AuthController::attemptLogin');
     $routes->get('logout', 'Operateur\AuthController::logout');
+   
 });
 
 // Routes protégées — filter operateurAuth
@@ -39,6 +40,9 @@ $routes->group('client', function ($routes) {
     $routes->get('login', 'Client\AuthController::login');
     $routes->post('login', 'Client\AuthController::attemptLogin');
     $routes->get('logout', 'Client\AuthController::logout');
+     $routes->get('epargne', 'Client\EpargneController::index');
+    
+    
 });
 
 // Routes protégées — filter clientAuth
@@ -50,6 +54,7 @@ $routes->group('client', ['filter' => 'clientAuth'], function ($routes) {
     $routes->get('historique', 'Client\OperationController::historique');
     $routes->get('check-destinataire', 'Client\OperationController::checkDestinataire');
     $routes->match(['get', 'post'], 'transfert-multiple', 'Client\OperationController::transfertMultiple');
+    
 });
 
 

@@ -88,6 +88,13 @@ CREATE TABLE promotion_config (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE epargne (
+    id INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+    pourcentage DECIMAL(5,2) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Suppression des tables (ordre inverse des créations)
 DROP TABLE IF EXISTS commission_config;
 DROP TABLE IF EXISTS transactions;

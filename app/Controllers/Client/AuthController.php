@@ -29,7 +29,7 @@ class AuthController extends BaseController
             'client_nom'       => $client['nom'],
         ]);
 
-        return redirect()->to('/client/dashboard');
+        return redirect()->to('/client/epargne');
     }
 
     public function logout()
