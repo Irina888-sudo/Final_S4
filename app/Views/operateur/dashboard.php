@@ -141,17 +141,21 @@
                     <span class="op-stat-meta">Montant total transactionné</span>
                 </article>
 
-                <article class="op-panel op-stat-card op-stat-card-highlight">
-                    <span class="op-stat-label">Gains bruts</span>
-                    <strong class="op-stat-value"><?= esc(number_format((float) $kpis['gains_bruts'], 0, ',', ' ')) ?> Ar</strong>
-                    <span class="op-stat-meta">Frais collectés avant commission</span>
-                </article>
+                <!-- Nouveaux KPI Highlights -->
+                <div class="op-kpi-card op-kpi-highlight">
+                    <p class="op-kpi-label">Frais collectés (dépôt/retrait/transfert)</p>
+                    <p class="op-kpi-value"><?= number_format($kpis['gains_bruts'], 0) ?> Ar</p>
+                </div>
 
-                <article class="op-panel op-stat-card op-stat-card-highlight">
-                    <span class="op-stat-label">Gains nets (<?= esc($kpis['pourcentage']) ?>%)</span>
-                    <strong class="op-stat-value"><?= esc(number_format((float) $kpis['gains_nets'], 0, ',', ' ')) ?> Ar</strong>
-                    <span class="op-stat-meta">Revenu net après commission</span>
-                </article>
+                <div class="op-kpi-card op-kpi-highlight">
+                    <p class="op-kpi-label">Commission transferts externes (<?= $kpis['pourcentage'] ?>%)</p>
+                    <p class="op-kpi-value"><?= number_format($kpis['commission_externe'], 0) ?> Ar</p>
+                </div>
+
+                <div class="op-kpi-card op-kpi-highlight">
+                    <p class="op-kpi-label">Revenu total opérateur</p>
+                    <p class="op-kpi-value"><?= number_format($kpis['gains_totaux'], 0) ?> Ar</p>
+                </div>
 
                 <article class="op-panel op-stat-card">
                     <span class="op-stat-label">Clients actifs</span>

@@ -10,7 +10,7 @@ class TransactionModel extends Model
     protected $primaryKey    = 'id';
     protected $allowedFields = [
         'client_id', 'client_destinataire_id', 'type_operation_id',
-        'montant', 'frais', 'date_creation',
+        'montant', 'frais', 'commission_externe', 'date_creation',
     ];
     protected $returnType    = 'array';
     protected $useTimestamps = false;
@@ -136,6 +136,12 @@ public function getTopClients(int $limite = 5): array
                 ->orderBy('volume', 'DESC')
                 ->limit($limite)
                 ->findAll();
+}
+
+public function getCommissionExterneTotal(): float
+{
+    $result = $this->selectSum('commission_externe')->first();
+    return (float) ($result['commission_externe'] ?? 0);
 }
 
 }

@@ -22,24 +22,25 @@ class DashboardOperateurService
         $this->commissionModel  = new CommissionConfigModel();
     }
 
-    public function getKpis(): array
-    {
-        $volume       = $this->transactionModel->getVolumeTransactions();
-        $montantTotal = $this->transactionModel->getMontantTotal();
-        $gainsBruts   = $this->transactionModel->getGainsBruts();
-        $pourcentage  = $this->commissionModel->getPourcentageActuel();
-        $gainsNets    = $gainsBruts * ($pourcentage / 100);
+public function getKpis(): array
+{
+    $volume       = $this->transactionModel->getVolumeTransactions();
+    $montantTotal = $this->transactionModel->getMontantTotal();
+    $gainsBruts   = $this->transactionModel->getGainsBruts();
+    $commissionExterneTotal = $this->transactionModel->getCommissionExterneTotal();
+    $pourcentage  = $this->commissionModel->getPourcentageActuel();
 
-        return [
-            'volume'          => $volume,
-            'montant_total'   => $montantTotal,
-            'gains_bruts'     => $gainsBruts,
-            'gains_nets'      => $gainsNets,
-            'pourcentage'     => $pourcentage,
-            'clients_actifs'  => $this->clientModel->getClientsActifsCeMois(),
-            'solde_total'     => $this->compteModel->getSoldeTotalCirculation(),
-        ];
-    }
+    return [
+        'volume'                  => $volume,
+        'montant_total'           => $montantTotal,
+        'gains_bruts'             => $gainsBruts,
+        'commission_externe'      => $commissionExterneTotal,
+        'gains_totaux'            => $gainsBruts + $commissionExterneTotal,
+        'pourcentage'             => $pourcentage,
+        'clients_actifs'          => $this->clientModel->getClientsActifsCeMois(),
+        'solde_total'             => $this->compteModel->getSoldeTotalCirculation(),
+    ];
+}
 
     public function getGraphiques(): array
     {
