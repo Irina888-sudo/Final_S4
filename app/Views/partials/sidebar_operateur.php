@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="<?= base_url('css/operateur/op-sidebar.css') ?>">
 <html lang="fr" data-theme="dark">
-<div class="op-sidebar">
+<aside class="op-sidebar">
     <button id="themeToggle" class="icon-btn">🌙</button>
     <div class="op-logo">MOMO PAY</div>
 
@@ -27,7 +27,7 @@
     <div class="op-sidebar-footer">
         <a href="/operateur/logout">Déconnexion</a>
     </div>
-</div>
+        </aside>
 <script>
     const html = document.documentElement;
     const toggleBtn = document.getElementById('themeToggle');
