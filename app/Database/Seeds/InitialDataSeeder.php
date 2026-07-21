@@ -223,6 +223,12 @@ class InitialDataSeeder extends Seeder
             'pourcentage' => 7.50,
             'date_creation' => date('Y-m-d H:i:s'),
         ]);
+
+        // --- 9. PROMOTION CONFIG ---
+        $this->db->table('promotion_config')->insert([
+            'pourcentage' => 20,
+        ]);
+
     }
 
     private function generateDates()

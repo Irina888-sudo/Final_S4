@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\CompteModel;
+use App\Models\PromotionConfigModel;
 use App\Models\TransactionModel;
 use App\Models\BaremeModel;
 use App\Models\TypeOperationModel;
@@ -26,6 +27,7 @@ class TransfertService
         $this->typeOperationModel = new TypeOperationModel();
         $this->clientModel        = new ClientModel();
         $this->commissionModel    = new CommissionConfigModel();
+        $this->promotionConfigModel    = new PromotionConfigModel();
     }
 
     public function effectuer(int $clientId, string $telephoneDestinataire, float $montant, bool $inclureFraisRetrait = false): array
@@ -55,7 +57,20 @@ class TransfertService
             return ['success' => false, 'message' => "Types d'opération introuvables."];
         }
 
-        $fraisTransfert = $this->baremeModel->getFrais($typeTransfert['id'], $montant);
+        //ALEAS
+        $fraisTransfert = 0;
+
+        //meme operateur avec promotion
+        if ($destinataire['est_interne']) {
+                $initialFraisTransfert = $this->baremeModel->getFrais($typeTransfert['id'], $montant);
+
+                $pourcentagePromotion = $this->promotionConfigModel->getPourcentagePromotion();
+
+                $fraisTransfert = $initialFraisTransfert - (($pourcentagePromotion*$initialFraisTransfert)/100);
+        }else {
+                //operateur externe sans promotion
+                $fraisTransfert = $this->baremeModel->getFrais($typeTransfert['id'], $montant);
+        }
 
         $fraisRetraitPrevu = 0;
         if ($inclureFraisRetrait) {

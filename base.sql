@@ -81,6 +81,13 @@ CREATE TABLE commission_config (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Table: commission_config
+CREATE TABLE promotion_config (
+    id INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+    pourcentage DECIMAL(5,2) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Suppression des tables (ordre inverse des créations)
 DROP TABLE IF EXISTS commission_config;
 DROP TABLE IF EXISTS transactions;
@@ -90,3 +97,6 @@ DROP TABLE IF EXISTS comptes;
 DROP TABLE IF EXISTS clients;
 DROP TABLE IF EXISTS prefixes;
 DROP TABLE IF EXISTS operateurs;
+
+--donne pour la promotion
+INSERT INTO promotion_config(pourcentage) VALUE (20);

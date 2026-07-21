@@ -9,6 +9,7 @@ php spark make:migration CreateTypesOperationTable
 php spark make:migration CreateComptesTable
 php spark make:migration CreateBaremesTable
 php spark make:migration CreateTransactionsTable
+php spark make:migration CreatePromotionConfigTable
 
 # Comment migrer
 php spark migrate
