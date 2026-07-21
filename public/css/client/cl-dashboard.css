@@ -1091,3 +1091,7 @@ body::before {
 [data-theme="light"] .btn-submit-withdraw {
     color: #b45309;
 }
+
+.cl-hidden {
+    display: none !important;
+}
