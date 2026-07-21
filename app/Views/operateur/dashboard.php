@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="<?= base_url('css/operateur/op-dashboard.css') ?>">
 </head>
 <body>
+    <video autoplay muted loop playsinline id="bgVideo">
+    <source src="<?= base_url('videos/video.webm') ?>" type="video/webm">
+</video>
 
 <?= view('partials/sidebar_operateur') ?>
 
