@@ -7,6 +7,7 @@ use App\Models\TransactionModel;
 use App\Models\BaremeModel;
 use App\Models\TypeOperationModel;
 use App\Models\ClientModel;
+use App\Models\CommissionConfigModel;
 
 class TransfertService
 {
@@ -15,6 +16,7 @@ class TransfertService
     protected BaremeModel $baremeModel;
     protected TypeOperationModel $typeOperationModel;
     protected ClientModel $clientModel;
+    protected CommissionConfigModel $commissionModel;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class TransfertService
         $this->baremeModel        = new BaremeModel();
         $this->typeOperationModel = new TypeOperationModel();
         $this->clientModel        = new ClientModel();
+        $this->commissionModel    = new CommissionConfigModel();
     }
 
     public function effectuer(int $clientId, string $telephoneDestinataire, float $montant, bool $inclureFraisRetrait = false): array
@@ -41,7 +44,6 @@ class TransfertService
             return ['success' => false, 'message' => 'Vous ne pouvez pas transférer vers votre propre compte.'];
         }
 
-        // Verification serveur : l'option n'est valable que pour un destinataire interne
         if ($inclureFraisRetrait && ! $destinataire['est_interne']) {
             return ['success' => false, 'message' => "L'option frais de retrait inclus n'est pas disponible pour cet opérateur."];
         }
@@ -55,10 +57,16 @@ class TransfertService
 
         $fraisTransfert = $this->baremeModel->getFrais($typeTransfert['id'], $montant);
 
-        // Frais de retrait futur estime, uniquement si l'option est activee et valide
         $fraisRetraitPrevu = 0;
         if ($inclureFraisRetrait) {
             $fraisRetraitPrevu = $this->baremeModel->getFrais($typeRetrait['id'], $montant);
+        }
+
+        // Commission externe : uniquement si destinataire hors plateforme
+        $commissionExterne = 0;
+        if (! $destinataire['est_interne']) {
+            $pourcentage = $this->commissionModel->getPourcentageActuel();
+            $commissionExterne = round($montant * ($pourcentage / 100), 2);
         }
 
         $compteEmetteur     = $this->compteModel->where('client_id', $clientId)->first();
@@ -68,7 +76,7 @@ class TransfertService
             return ['success' => false, 'message' => 'Compte introuvable.'];
         }
 
-        $totalADeduire = $montant + $fraisTransfert + $fraisRetraitPrevu;
+        $totalADeduire = $montant + $fraisTransfert + $fraisRetraitPrevu + $commissionExterne;
 
         if ($compteEmetteur['solde'] < $totalADeduire) {
             return ['success' => false, 'message' => 'Solde insuffisant pour ce transfert.'];
@@ -93,6 +101,7 @@ class TransfertService
             'type_operation_id'      => $typeTransfert['id'],
             'montant'                => $montant,
             'frais'                  => $fraisTransfert,
+            'commission_externe'     => $commissionExterne,
             'date_creation'          => date('Y-m-d H:i:s'),
         ]);
 
@@ -102,9 +111,10 @@ class TransfertService
             return ['success' => false, 'message' => 'Erreur lors du transfert.'];
         }
 
-        $message = $inclureFraisRetrait
-            ? 'Transfert effectué avec succès (frais de retrait futurs pris en charge).'
-            : 'Transfert effectué avec succès.';
+        $message = 'Transfert effectué avec succès.';
+        if ($commissionExterne > 0) {
+            $message .= ' (commission opérateur externe appliquée)';
+        }
 
         return ['success' => true, 'message' => $message];
     }
