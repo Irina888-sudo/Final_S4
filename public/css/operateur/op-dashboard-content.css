@@ -1,0 +1,217 @@
+/* ============================================
+   MOMO PAY — Dashboard opérateur
+   ============================================ */
+
+/* Grille KPIs */
+.op-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.op-kpi-grid .op-stat-card:nth-child(1) { animation-delay: 0.02s; }
+.op-kpi-grid .op-stat-card:nth-child(2) { animation-delay: 0.04s; }
+.op-kpi-grid .op-stat-card:nth-child(3) { animation-delay: 0.06s; }
+.op-kpi-grid .op-stat-card:nth-child(4) { animation-delay: 0.08s; }
+.op-kpi-grid .op-stat-card:nth-child(5) { animation-delay: 0.10s; }
+.op-kpi-grid .op-stat-card:nth-child(6) { animation-delay: 0.12s; }
+.op-kpi-grid .op-stat-card:nth-child(7) { animation-delay: 0.14s; }
+.op-kpi-grid .op-stat-card:nth-child(8) { animation-delay: 0.16s; }
+
+/* Alertes */
+.op-alertes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.op-alerte {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  font-size: 0.92rem;
+  animation: opFadeUp 0.45s var(--op-ease) both;
+}
+
+.op-alerte-warning {
+  color: #ffe8b8;
+  background: rgba(255, 180, 80, 0.1);
+  border-color: rgba(255, 180, 80, 0.22);
+}
+
+.op-alerte-info {
+  color: #c8f6ff;
+  background: rgba(0, 209, 255, 0.08);
+  border-color: rgba(0, 209, 255, 0.18);
+}
+
+.op-alerte-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.op-alerte-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.op-alerte-link {
+  color: var(--op-accent);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.op-alerte-link:hover {
+  text-decoration: underline;
+}
+
+.op-alerte-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffb84d;
+  background: rgba(255, 180, 80, 0.15);
+  border: 1px solid rgba(255, 180, 80, 0.25);
+}
+
+/* Alerte expandable */
+.op-alerte-detaillee {
+  flex-direction: column;
+  align-items: stretch;
+  cursor: pointer;
+  transition:
+    border-color 0.25s var(--op-ease),
+    box-shadow 0.25s var(--op-ease);
+}
+
+.op-alerte-detaillee:hover {
+  border-color: rgba(255, 180, 80, 0.35);
+  box-shadow: 0 8px 24px rgba(255, 180, 80, 0.08);
+}
+
+.op-alerte-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  width: 100%;
+}
+
+.op-alerte-chevron {
+  margin-left: auto;
+  color: var(--op-text-muted);
+  transition: transform 0.25s var(--op-ease);
+}
+
+.op-alerte-detaillee.ouverte .op-alerte-chevron {
+  transform: rotate(180deg);
+}
+
+.op-alerte-body {
+  display: none;
+  width: 100%;
+  padding-top: 0.85rem;
+  margin-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.op-alerte-detaillee.ouverte .op-alerte-body {
+  display: block;
+}
+
+.op-alerte-table {
+  min-width: 100%;
+}
+
+.op-phone-sm {
+  color: var(--op-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Graphiques */
+.op-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.op-chart-panel {
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+}
+
+.op-panel-head-compact {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.85rem;
+}
+
+.op-chart-canvas-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 240px;
+}
+
+.op-chart-canvas-wrap-pie {
+  min-height: 260px;
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.op-chart-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  border-radius: 12px;
+  color: var(--op-text-muted);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+/* Responsive dashboard */
+@media (max-width: 1200px) {
+  .op-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .op-kpi-grid,
+  .op-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .op-alerte-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .op-alerte-chevron {
+    margin-left: 0;
+  }
+}
+
+/* Light theme alertes */
+[data-theme="light"] .op-alerte-warning {
+  color: #9a6700;
+  background: rgba(255, 180, 80, 0.12);
+}
+
+[data-theme="light"] .op-alerte-info {
+  color: #006d8f;
+  background: rgba(0, 209, 255, 0.08);
+}

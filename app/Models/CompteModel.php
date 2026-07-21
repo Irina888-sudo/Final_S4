@@ -11,4 +11,11 @@ class CompteModel extends Model
     protected $allowedFields = ['client_id', 'solde'];
     protected $returnType    = 'array';
     protected $useTimestamps = false;
+
+    public function getSoldeTotalCirculation(): float
+{
+    $result = $this->selectSum('solde')->first();
+    return (float) ($result['solde'] ?? 0);
+}
+
 }

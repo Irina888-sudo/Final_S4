@@ -1,20 +1,85 @@
-<div class="op-sidebar">
-    <div class="op-sidebar-header">
-        <h2>Mobile Money</h2>
-        <span class="op-sidebar-tag">Espace Opérateur</span>
+<?php
+$currentPage = $currentPage ?? uri_string();
+
+$navItems = [
+    'dashboard' => [
+        'label' => 'Dashboard',
+        'url'   => base_url('operateur/dashboard'),
+        'icon'  => 'layout-dashboard',
+    ],
+    'prefixes' => [
+        'label' => 'Préfixes',
+        'url'   => base_url('operateur/prefixes'),
+        'icon'  => 'hash',
+    ],
+    'types-baremes' => [
+        'label' => 'Types & Barèmes',
+        'url'   => base_url('operateur/types-baremes'),
+        'icon'  => 'layers',
+    ],
+    'commission' => [
+        'label' => 'Commission',
+        'url'   => base_url('operateur/commission'),
+        'icon'  => 'percent',
+    ],
+    'situation-gains' => [
+        'label' => 'Situation gains',
+        'url'   => base_url('operateur/situation-gains'),
+        'icon'  => 'trending-up',
+    ],
+    'situation-comptes' => [
+        'label' => 'Situation comptes',
+        'url'   => base_url('operateur/situation-comptes'),
+        'icon'  => 'wallet',
+    ],
+];
+
+$indicators = $indicators ?? [
+    ['label' => 'Objectif mensuel', 'value' => 72, 'color' => 'cyan'],
+    ['label' => 'Taux de réussite', 'value' => 89, 'color' => 'teal'],
+    ['label' => 'Liquidité comptes', 'value' => 64, 'color' => 'purple'],
+];
+?>
+
+<aside class="op-sidebar" aria-label="Navigation principale">
+    <div class="op-sidebar-top">
+        <div class="op-logo">
+            <span class="op-logo-icon" aria-hidden="true"></span>
+            <span class="op-logo-text">MOMO PAY</span>
+        </div>
+
+        <button
+            id="themeToggle"
+            class="op-icon-btn"
+            type="button"
+            aria-label="Changer le thème"
+            title="Changer le thème"
+        >
+            🌙
+        </button>
     </div>
 
-    <nav class="op-sidebar-nav">
-        <a href="<?= base_url('operateur/dashboard') ?>">Dashboard</a>
-        <a href="<?= base_url('operateur/prefixes') ?>">Préfixes</a>
-        <a href="<?= base_url('operateur/types-baremes') ?>">Types &amp; Barèmes</a>
-         <a href="<?= base_url('operateur/commission') ?>">Commission externe</a>  
-        <a href="<?= base_url('operateur/situation-gains') ?>">Situation Gains</a>
-        <a href="<?= base_url('operateur/situation-comptes') ?>">Situation Comptes</a>
+    <nav class="op-nav">
+        <?php foreach ($navItems as $key => $item):
+            $active = (strpos($currentPage, $key) !== false) ? 'active' : '';
+        ?>
+            <a
+                href="<?= esc($item['url']) ?>"
+                class="op-nav-link <?= $active ?>"
+                data-icon="<?= esc($item['icon']) ?>"
+            >
+                <span class="op-nav-icon" aria-hidden="true"></span>
+                <span class="op-nav-label"><?= esc($item['label']) ?></span>
+            </a>
+        <?php endforeach; ?>
     </nav>
 
-    <div class="op-sidebar-user">
-        <p class="op-sidebar-username"><?= esc(session()->get('operateur_username')) ?></p>
-        <a href="<?= base_url('operateur/logout') ?>" class="op-sidebar-logout">Déconnexion</a>
+    
+
+    <div class="op-sidebar-footer">
+        <a href="<?= base_url('operateur/logout') ?>" class="op-logout-link">
+            <span class="op-logout-icon" aria-hidden="true"></span>
+            <span>Déconnexion</span>
+        </a>
     </div>
-</div>
+</aside>
