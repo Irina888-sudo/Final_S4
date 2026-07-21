@@ -1,31 +1,41 @@
-:root {
-    /* Couleurs */
-    --cl-primary: #27ae60;
-    --cl-primary-dark: #1e8449;
-    --cl-primary-light: #eafaf1;
-    --cl-danger: #e74c3c;
-    --cl-text: #2c3e50;
-    --cl-text-muted: #7f8c8d;
-    --cl-bg: #f4f6f8;
-    --cl-white: #ffffff;
-    --cl-border: #e0e0e0;
+/* ============================================
+   MOMO PAY — Client design tokens
+   ============================================ */
 
-    /* Ombres */
-    --cl-shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-    --cl-shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-
-    /* Espacements */
-    --cl-radius: 12px;
-    --cl-radius-sm: 8px;
+:root,
+[data-theme="dark"] {
+  --cl-bg: #070b14;
+  --cl-panel: rgba(255, 255, 255, 0.04);
+  --cl-panel-border: rgba(255, 255, 255, 0.08);
+  --cl-text: #e8edf5;
+  --cl-text-muted: #8b95a8;
+  --cl-accent: #00d1ff;
+  --cl-accent-soft: rgba(0, 209, 255, 0.12);
+  --cl-success: #14d9c4;
+  --cl-danger: #ff6b7a;
+  --cl-warning: #ffb84d;
+  --cl-radius: 16px;
+  --cl-sidebar-width: 270px;
+  --cl-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* {
-    box-sizing: border-box;
+[data-theme="light"] {
+  --cl-bg: #eef2f8;
+  --cl-panel: rgba(255, 255, 255, 0.92);
+  --cl-panel-border: rgba(15, 23, 42, 0.08);
+  --cl-text: #0f172a;
+  --cl-text-muted: #64748b;
+  --cl-accent: #0096c7;
+  --cl-accent-soft: rgba(0, 150, 199, 0.1);
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-    background: var(--cl-bg);
-    color: var(--cl-text);
-    margin: 0;
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top right, rgba(0, 209, 255, 0.08), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(124, 92, 255, 0.08), transparent 24%),
+    var(--cl-bg);
+  color: var(--cl-text);
 }

@@ -1,76 +1,274 @@
+/* ==========================================================
+   cl-sidebar.css — Sidebar client MOMO PAY
+   ========================================================== */
+
 .cl-sidebar {
-    width: 230px;
-    height: 100vh;
-    background: #1e824c;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
-    font-family: Arial, sans-serif;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    height: 100vh;
+    padding: 1.25rem 1rem;
+    box-sizing: border-box;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+        rgba(7, 11, 20, 0.92);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
 }
 
+[data-theme="light"] .cl-sidebar {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.98));
+    border-right-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.04);
+}
+
+/* ---------- HEADER ---------- */
 .cl-sidebar-header {
-    padding: 25px 20px 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 1.75rem;
+    padding: 0.5rem 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+[data-theme="light"] .cl-sidebar-header {
+    border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+.cl-sidebar-logo,
 .cl-sidebar-header h2 {
-    font-size: 18px;
-    margin-bottom: 4px;
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--cl-accent, #00d1ff);
+    text-shadow: 0 0 20px rgba(0, 209, 255, 0.35);
+}
+
+[data-theme="light"] .cl-sidebar-logo,
+[data-theme="light"] .cl-sidebar-header h2 {
+    text-shadow: none;
+    color: #0096c7;
 }
 
 .cl-sidebar-tag {
-    font-size: 12px;
-    color: #d4efdf;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted, #94a3b8);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+[data-theme="light"] .cl-sidebar-tag {
+    background: rgba(0, 150, 199, 0.08);
+    border-color: rgba(0, 150, 199, 0.15);
+    color: #64748b;
+}
+
+/* ---------- NAVIGATION ---------- */
 .cl-sidebar-nav {
     display: flex;
     flex-direction: column;
-    padding: 15px 0;
-    flex-grow: 1;
+    gap: 0.35rem;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.25rem;
 }
 
-.cl-sidebar-nav a {
-    color: #ecf0f1;
+/* Scrollbar discrète */
+.cl-sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+.cl-sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+.cl-sidebar-nav a,
+.cl-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.72rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted, #94a3b8);
     text-decoration: none;
-    padding: 12px 20px;
-    font-size: 14px;
-    transition: background 0.2s;
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
-.cl-sidebar-nav a:hover {
-    background: rgba(255,255,255,0.08);
+.cl-sidebar-nav a:hover,
+.cl-nav-link:hover {
+    color: var(--text-main, #f1f5f9);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
 }
 
+[data-theme="light"] .cl-sidebar-nav a:hover,
+[data-theme="light"] .cl-nav-link:hover {
+    background: rgba(0, 150, 199, 0.06);
+    border-color: rgba(0, 150, 199, 0.12);
+    color: #0f172a;
+}
+
+/* Lien actif — glow cyan */
+.cl-sidebar-nav a.active,
+.cl-nav-link.active {
+    color: var(--cl-accent, #00d1ff);
+    background: rgba(0, 209, 255, 0.1);
+    border-color: rgba(0, 209, 255, 0.22);
+    box-shadow:
+        inset 3px 0 0 var(--cl-accent, #00d1ff),
+        0 0 20px rgba(0, 209, 255, 0.08);
+    font-weight: 600;
+}
+
+[data-theme="light"] .cl-sidebar-nav a.active,
+[data-theme="light"] .cl-nav-link.active {
+    background: rgba(0, 150, 199, 0.1);
+    border-color: rgba(0, 150, 199, 0.25);
+    color: #0096c7;
+    box-shadow: inset 3px 0 0 #0096c7;
+}
+
+/* ---------- UTILISATEUR (bas) ---------- */
 .cl-sidebar-user {
-    padding: 18px 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
+    padding: 1rem 0.65rem 0.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .cl-sidebar-user {
+    border-top-color: rgba(15, 23, 42, 0.08);
 }
 
 .cl-sidebar-username {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 2px;
+    margin: 0 0 0.2rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-main, #f1f5f9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cl-sidebar-tel {
-    font-size: 12px;
-    color: #d4efdf;
-    margin-bottom: 8px;
+    margin: 0 0 0.85rem;
+    font-size: 0.78rem;
+    color: var(--text-muted, #94a3b8);
+    font-variant-numeric: tabular-nums;
 }
 
 .cl-sidebar-logout {
-    display: inline-block;
-    color: #ffb3b3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--red, #ef4444);
     text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+    box-sizing: border-box;
 }
 
 .cl-sidebar-logout:hover {
-    text-decoration: underline;
+    background: rgba(239, 68, 68, 0.18);
+    border-color: rgba(239, 68, 68, 0.4);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 900px) {
+    .cl-sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        flex-direction: column;
+        padding: 1rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cl-sidebar-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.85rem;
+    }
+
+    .cl-sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 0.5rem;
+    }
+
+    .cl-sidebar-nav a,
+    .cl-nav-link {
+        flex-shrink: 0;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.82rem;
+    }
+
+    .cl-sidebar-nav a.active,
+    .cl-nav-link.active {
+        box-shadow: inset 0 -2px 0 var(--cl-accent, #00d1ff);
+    }
+
+    .cl-sidebar-user {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        margin-top: 0.75rem;
+        padding-top: 0.85rem;
+    }
+
+    .cl-sidebar-username,
+    .cl-sidebar-tel {
+        margin: 0;
+    }
+
+    .cl-sidebar-logout {
+        width: auto;
+        margin-left: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cl-sidebar-nav a,
+    .cl-nav-link,
+    .cl-sidebar-logout {
+        transition: none;
+    }
 }

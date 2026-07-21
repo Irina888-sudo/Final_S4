@@ -1,0 +1,292 @@
+/* ==========================================================
+   DASHBOARD CSS — style Finnova (adapté mobile money)
+   ========================================================== */
+
+:root {
+    --bg-page: #f3f4f6;
+    --bg-card: #ffffff;
+    --bg-dark: #111827;
+    --indigo: #6366f1;
+    --indigo-dark: #4f46e5;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --green: #22c55e;
+    --red: #ef4444;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background: var(--bg-page);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 32px;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.header .logo-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header .logo-group img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    color: var(--text-muted);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-links a.active {
+    color: var(--indigo);
+    font-weight: 700;
+}
+
+/* ---------- PAGE TITLE ---------- */
+.page-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.page-title-row h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.page-title-row p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin: 0;
+}
+
+.btn-primary {
+    background: var(--indigo);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary:hover { background: var(--indigo-dark); }
+
+/* ---------- CARDS (stats) ---------- */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin: 0 0 8px;
+}
+
+.card .value {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.card .value.red { color: var(--red); }
+.card .value.indigo { color: var(--indigo); }
+.card .value.green { color: var(--green); }
+
+.card .trend {
+    font-size: 12px;
+}
+
+.card .trend.up { color: var(--red); }
+.card .trend.down { color: var(--indigo); }
+
+/* ---------- FILTERS BAR ---------- */
+.filters-bar {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    margin-bottom: 32px;
+}
+
+.filters-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.pill {
+    background: #f3f4f6;
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+}
+
+.pill.active {
+    background: var(--indigo);
+    color: #fff;
+}
+
+.tabs {
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 12px;
+}
+
+.tabs button {
+    border: none;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.tabs button.active {
+    background: var(--indigo);
+    color: #fff;
+}
+
+/* ---------- DARK LIST PANEL (ex: transactions/comptes) ---------- */
+.dark-panel {
+    background: var(--bg-dark);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.dark-panel-inner {
+    padding: 24px;
+}
+
+.dark-panel h3 {
+    color: #fff;
+    font-size: 18px;
+    margin: 0 0 20px;
+}
+
+.dark-list-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #d1d5db;
+    padding: 10px 0;
+    border-bottom: 1px solid #1f2937;
+    font-size: 14px;
+}
+
+.dark-list-row:last-child { border-bottom: none; }
+
+/* ---------- STANDARD TABLE (CRUD listings) ---------- */
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+table.data-table th {
+    background: #f9fafb;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+table.data-table td {
+    padding: 12px 16px;
+    border-top: 1px solid #f3f4f6;
+    font-size: 14px;
+}
+
+table.data-table a,
+table.data-table button {
+    font-size: 13px;
+    margin-right: 8px;
+}
+
+/* ---------- FORMS ---------- */
+.form-box {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    max-width: 480px;
+}
+
+.form-box label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 12px 0 4px;
+}
+
+.form-box input,
+.form-box select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+}
+
+@media (max-width: 600px) {
+    .cards-grid { grid-template-columns: 1fr; }
+}

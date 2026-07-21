@@ -10,7 +10,7 @@ class TransactionModel extends Model
     protected $primaryKey    = 'id';
     protected $allowedFields = [
         'client_id', 'client_destinataire_id', 'type_operation_id',
-        'montant', 'frais', 'date_creation',
+        'montant', 'frais', 'commission_externe', 'date_creation',
     ];
     protected $returnType    = 'array';
     protected $useTimestamps = false;
@@ -70,5 +70,78 @@ class TransactionModel extends Model
 
         return $evolution;
     }
+
+    public function getVolumeTransactions(): array
+{
+    $aujourdhui = $this->where('DATE(date_creation)', date('Y-m-d'))->countAllResults();
+
+    $debutSemaine = date('Y-m-d', strtotime('monday this week'));
+    $cetteSemaine = $this->where('date_creation >=', $debutSemaine)->countAllResults(false);
+    $total = $this->countAllResults();
+
+    return [
+        'aujourdhui'   => $aujourdhui,
+        'cette_semaine'=> $cetteSemaine,
+        'total'        => $total,
+    ];
+}
+
+public function getMontantTotal(): float
+{
+    $result = $this->selectSum('montant')->first();
+    return (float) ($result['montant'] ?? 0);
+}
+
+public function getGainsBruts(): float
+{
+    $result = $this->selectSum('frais')->first();
+    return (float) ($result['frais'] ?? 0);
+}
+
+public function getEvolutionGains(int $nbJours = 7): array
+{
+    $dateDebut = date('Y-m-d', strtotime("-$nbJours days"));
+
+    return $this->select('DATE(date_creation) as jour, SUM(frais) as total_frais')
+                ->where('date_creation >=', $dateDebut)
+                ->groupBy('jour')
+                ->orderBy('jour', 'ASC')
+                ->findAll();
+}
+
+public function getRepartitionOperations(): array
+{
+    return $this->select('types_operation.libelle, COUNT(transactions.id) as nombre, SUM(transactions.montant) as volume')
+                ->join('types_operation', 'types_operation.id = transactions.type_operation_id')
+                ->groupBy('types_operation.libelle')
+                ->findAll();
+}
+
+public function getTopPrefixes(int $limite = 5): array
+{
+    return $this->select('prefixes.code, COUNT(transactions.id) as nombre')
+                ->join('clients', 'clients.id = transactions.client_id')
+                ->join('prefixes', 'prefixes.id = clients.prefixe_id')
+                ->groupBy('prefixes.code')
+                ->orderBy('nombre', 'DESC')
+                ->limit($limite)
+                ->findAll();
+}
+
+public function getTopClients(int $limite = 5): array
+{
+    return $this->select('clients.nom, clients.telephone, SUM(transactions.montant) as volume')
+                ->join('clients', 'clients.id = transactions.client_id')
+                ->groupBy('clients.id')
+                ->orderBy('volume', 'DESC')
+                ->limit($limite)
+                ->findAll();
+}
+
+public function getCommissionExterneTotal(): float
+{
+    $result = $this->selectSum('commission_externe')->first();
+    return (float) ($result['commission_externe'] ?? 0);
+}
 
 }
